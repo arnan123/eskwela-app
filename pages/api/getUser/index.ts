@@ -4,7 +4,6 @@ import supabaseClientSide from '@/utils/supabase/client';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-
     const {
         data: { user },
     } = await supabaseClientSide.auth.getUser()

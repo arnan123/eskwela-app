@@ -2,14 +2,19 @@
 import CreateAnnouncement from "@/components/Announcements/CreateAnnouncements";
 import { getAnnouncements, deleteAnnouncement } from "@/libs/announcements";
 import { Announcement } from "@/types/announcement";
+import supabaseClientSide from "@/utils/supabase/client";
+import { useSession } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 
 const AnnouncementsPage = () => {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const session = useSession();
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       const data = await getAnnouncements();
+      console.log(session);
+      console.log(data);
       setAnnouncements(data);
     };
 
