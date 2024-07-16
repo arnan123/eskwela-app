@@ -7,9 +7,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(405).end();
     }
 
-    const { title,id} = req.body;
+    const { title,content,id} = req.body;
 
-    const { error } = await supabaseClientSide.from('notes').insert({title,user:id});
+    const { error } = await supabaseClientSide.from('announcements').insert({title,user:id,content});
    
 
     if (error) {

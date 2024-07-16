@@ -6,6 +6,7 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import supabaseClientSide, {
   supabaseClientSideTest,
 } from "@/utils/supabase/client";
+import LayoutPage from "@/components/Layout/LayoutPage";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,8 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         supabaseClient={supabaseClientSideTest}
       >
         <AuthGuard>
-          <NavBar />
-          <Component {...pageProps} />
+          <LayoutPage>
+            <Component {...pageProps} />
+          </LayoutPage>
         </AuthGuard>
       </SessionContextProvider>
     </>

@@ -1,21 +1,15 @@
 // pages/dashboard.tsx
 "use client";
 import { usePathname } from "next/navigation";
-import Sidebar from "./LayoutComponents/AdminSidebar";
 import Header from "./LayoutComponents/Header";
+import AdminLayout from "./LayoutComponents/AdminLayout";
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
 
   return (
-    <div className=" w-full h-full">
-      <div>
-        <Header />
-      </div>
-      <div className="flex">
-        <Sidebar />
-        <div className="p-[5rem]">{children}</div>
-      </div>
+    <div className="  ">
+      <AdminLayout>{children}</AdminLayout>
 
       {/* <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
         <p>

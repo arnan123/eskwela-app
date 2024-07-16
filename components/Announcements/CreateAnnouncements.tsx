@@ -2,9 +2,16 @@
 import { createAnnouncement } from "@/libs/announcements";
 import { useSession } from "@supabase/auth-helpers-react";
 import axios from "axios";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import Button from "../Buttons/Primary";
 
-const CreateAnnouncement = () => {
+const CreateAnnouncement = ({
+  setRefresh,
+  refresh,
+}: {
+  setRefresh: Dispatch<SetStateAction<boolean>>;
+  refresh: boolean;
+}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const session = useSession();
@@ -13,10 +20,11 @@ const CreateAnnouncement = () => {
     e.preventDefault();
     const res = await axios.post("/api/announcements/create", {
       title: title,
+      content: content,
       id: session?.user.id,
     });
-
     console.log(res);
+    setRefresh(!refresh);
     setTitle("");
     setContent("");
   };
@@ -38,7 +46,7 @@ const CreateAnnouncement = () => {
           onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      <button type="submit">Create Announcement</button>
+      <Button type="submit">Create Announcement</Button>
     </form>
   );
 };
