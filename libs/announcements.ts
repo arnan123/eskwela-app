@@ -11,8 +11,7 @@ export const getAnnouncements = async (): Promise<Announcement[]> => {
 };
 
 export const createAnnouncement = async (announcement: any): Promise<void> => {
-    const session = useSession();
-    const { error,data } = await supabaseClientSide.from('announcements').insert({...announcement,user_id:session?.user.id});
+    const { error,data } = await supabaseClientSide.from('announcements').insert({...announcement});
     
     if (error) throw error;
 };

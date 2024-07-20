@@ -15,13 +15,10 @@ const AnnouncementsPage = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       const data = await getAnnouncements();
-      console.log(session);
-      console.log(data);
       setAnnouncements(data);
     };
-    console.log(refresh);
     fetchAnnouncements();
-  }, [refresh]);
+  }, [refresh, session]);
 
   const handleDelete = async (id: string) => {
     await deleteAnnouncement(id);
@@ -31,7 +28,7 @@ const AnnouncementsPage = () => {
   };
 
   return (
-    <div className="text-black bg-gray-500 h-[200vh] w-full">
+    <div className="text-black bg-gray-500 w-full">
       <h1>Announcements</h1>
       <CreateAnnouncement setRefresh={setRefresh} refresh={refresh} />
       <Box className="flex flex-col p-5">

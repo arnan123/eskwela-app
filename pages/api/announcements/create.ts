@@ -7,10 +7,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(405).end();
     }
 
-    const { title,content,id} = req.body;
+    const { title, content, id } = req.body;
 
-    const { error } = await supabaseClientSide.from('announcements').insert({title,user:id,content});
-   
+    const { error } = await supabaseClientSide.from('announcements').insert({ title, user_id: id, content });
+
 
     if (error) {
         return res.status(401).json({ message: 'Invalid request' });

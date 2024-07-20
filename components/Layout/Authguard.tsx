@@ -9,6 +9,7 @@ import {
   useUser,
 } from "@supabase/auth-helpers-react";
 import { CircularProgress } from "@mui/material";
+import supabaseClientSide from "@/utils/supabase/client";
 
 interface AuthGuardProps {
   children: ReactNode;
@@ -21,14 +22,23 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
   const sessionData = useSession();
   const supabaseC = useSupabaseClient();
   const [loadingPage, setLoadingPage] = useState(false);
+  const user = useUser();
+
   const token = cookies.token;
 
   useEffect(() => {
-    console.log(sessionData, "session");
-    if (!sessionData) {
-      supabaseC.auth.refreshSession(token);
+    setLoadingPage(true);
+    console.log(isAuthenticated);
+    if (
+      isAuthenticated &&
+      (router.pathname == "/login" || router.pathname == "/signup") &&
+      !token
+    ) {
+      setLoadingPage(false);
+      router.push("/login");
     }
-  }, [sessionData, cookies]);
+    setLoadingPage(false);
+  }, [isAuthenticated, router, cookies, sessionData, token]);
 
   useEffect(() => {
     setLoadingPage(true);
@@ -44,7 +54,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
       router.push("/login");
     }
     setLoadingPage(false);
-  }, [isAuthenticated, router, cookies, sessionData]);
+  }, [isAuthenticated, router, cookies, sessionData, token]);
 
   if (loadingPage) {
     return <CircularProgress />;

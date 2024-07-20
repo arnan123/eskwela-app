@@ -9,9 +9,7 @@ interface NoteListProps {
 }
 
 const NoteList: React.FC<NoteListProps> = ({ notes, onEdit, onDelete }) => {
-  useEffect(() => {
-    console.log(notes);
-  }, []);
+
 
   return (
     <div className="space-y-4">

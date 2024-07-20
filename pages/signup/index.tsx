@@ -7,7 +7,7 @@ import { useAuthStore } from "@/stores/authStore";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = useAuthStore((state : any) => state.login);
+  const login = useAuthStore((state: any) => state.login);
   const router = useRouter();
   const [, setCookie] = useCookies(["token"]);
 
@@ -24,7 +24,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen text-black">
+    <div className="flex items-center justify-center text-black">
       <form onSubmit={handleSignup} className="bg-white p-6 rounded shadow-md">
         <h1 className="mb-4 text-2xl">Sign Up</h1>
         <input

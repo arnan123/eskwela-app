@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { useAuthStore } from "@/stores/authStore";
+import supabaseClientSide from "@/utils/supabase/client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,8 +15,12 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/login", { email, password });
-      setCookie("token", data.token);
+      const res = await axios.post("/api/login", {
+        email,
+        password,
+      }) as any;
+     console.log(res)
+      setCookie("token", res.token);
       login();
       router.push("/admin/announcements");
     } catch (error) {

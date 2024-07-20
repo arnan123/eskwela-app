@@ -60,7 +60,8 @@ export default function AdminLayout(props: Props) {
           "Announcements",
           "Subjects",
           "Schedules",
-          "Staffs",
+          "Teachers",
+          "Students",
           "Form",
           "Signout",
         ].map((text, index) => (

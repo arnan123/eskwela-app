@@ -8,7 +8,7 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
 
   return (
-    <div className="  ">
+    <div className="bg-slate-300 h-[100%] min-h-[100vh]">
       <AdminLayout>{children}</AdminLayout>
 
       {/* <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">

@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import supabaseClientSide from '@/utils/supabase/client';
+import supabaseClientSide, { supabaseClientSideTest } from '@/utils/supabase/client';
+import { getUserById } from '@/libs/users';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
     if (req.method !== 'POST') {
         return res.status(405).end();
     }
@@ -14,7 +16,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         password,
     });
 
-    if (error) {
+    const { user, error: getError } = await getUserById(data.user?.id as string)
+
+
+    if (error || getError) {
         return res.status(401).json({ message: 'Invalid email or password' });
     }
 
@@ -22,5 +27,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         expiresIn: '1h',
     });
 
-    res.status(200).json({ token });
+    res.status(200).json({ token: data.session.access_token, user });
 }

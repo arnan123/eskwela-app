@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 import supabaseClientSide from '@/utils/supabase/client';
+import { ACCOUNT_STATUS } from '@/constants/account_status';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -14,7 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         password,
     });
 
-    if (error) {
+    const { error: insertError } = await supabaseClientSide.from('users').insert({ id: data.user?.id, username: data.user?.email, status: ACCOUNT_STATUS.ADMIN });
+
+
+    if (error || insertError) {
         return res.status(401).json({ message: 'Error signing up' });
     }
 

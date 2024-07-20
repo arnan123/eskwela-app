@@ -23,7 +23,6 @@ const CreateAnnouncement = ({
       content: content,
       id: session?.user.id,
     });
-    console.log(res);
     setRefresh(!refresh);
     setTitle("");
     setContent("");
