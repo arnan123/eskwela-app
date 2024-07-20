@@ -9,6 +9,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const login = useAuthStore((state: any) => state.login);
+  const setAdmin = useAuthStore((state: any) => state.setAdmin);
+  const setNonAdmin = useAuthStore((state: any) => state.setNonAdmin);
+
   const router = useRouter();
   const [, setCookie] = useCookies(["token"]);
 
@@ -18,9 +21,14 @@ const Login = () => {
       const res = await axios.post("/api/login", {
         email,
         password,
-      }) as any;
-     console.log(res)
-      setCookie("token", res.token);
+      });
+      console.log(res);
+      setCookie("token", res.data.token);
+      if (res.data.user.status == 2) {
+        setAdmin();
+      } else {
+        setNonAdmin();
+      }
       login();
       router.push("/admin/announcements");
     } catch (error) {

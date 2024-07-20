@@ -18,6 +18,8 @@ interface AuthGuardProps {
 const AuthGuard = ({ children }: AuthGuardProps) => {
   const router = useRouter();
   const isAuthenticated = useAuthStore((state: any) => state.isAuthenticated);
+  const isAdmin = useAuthStore((state: any) => state.isAdmin);
+
   const [cookies] = useCookies(["token"]);
   const sessionData = useSession();
   const supabaseC = useSupabaseClient();
@@ -28,17 +30,19 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
 
   useEffect(() => {
     setLoadingPage(true);
-    console.log(isAuthenticated);
+    console.log(isAuthenticated, "isAuthenticated");
+    console.log(isAdmin, "isadmin");
     if (
       isAuthenticated &&
+      sessionData &&
       (router.pathname == "/login" || router.pathname == "/signup") &&
       !token
     ) {
       setLoadingPage(false);
-      router.push("/login");
+      router.push("/");
     }
     setLoadingPage(false);
-  }, [isAuthenticated, router, cookies, sessionData, token]);
+  }, [router, cookies, token, sessionData]);
 
   useEffect(() => {
     setLoadingPage(true);
@@ -54,7 +58,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
       router.push("/login");
     }
     setLoadingPage(false);
-  }, [isAuthenticated, router, cookies, sessionData, token]);
+  }, [router, cookies, sessionData, token]);
 
   if (loadingPage) {
     return <CircularProgress />;

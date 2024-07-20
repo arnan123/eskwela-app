@@ -6,6 +6,7 @@ interface AuthState {
     isAdmin: boolean;
     login: () => void;
     logout: () => void;
+    accountStatus : number;
 }
 
 
@@ -17,6 +18,7 @@ export const useAuthStore = create(
             login: () => set({ isAuthenticated: true }),
             logout: () => set({ isAuthenticated: false }),
             setAdmin: () => set({ isAdmin: true }),
+            setNonAdmin: () => set({ isAdmin: false }),
         }),
         {
             name: 'auth', // name of the item in the storage (must be unique)

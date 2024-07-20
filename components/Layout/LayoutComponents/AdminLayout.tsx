@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
+import { Button } from "@mui/base";
 
 const drawerWidth = 240;
 
@@ -62,18 +63,29 @@ export default function AdminLayout(props: Props) {
           "Schedules",
           "Teachers",
           "Students",
-          "Form",
+          "Forms",
           "Signout",
         ].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <Link href={`/admin/${text.toLowerCase()}`}>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </Link>
+            {text === "Signout" ? (
+              <Link href={`/${text.toLowerCase()}`}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </Link>
+            ) : (
+              <Link href={`/admin/${text.toLowerCase()}`}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </Link>
+            )}
           </ListItem>
         ))}
       </List>

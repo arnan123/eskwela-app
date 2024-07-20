@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         password,
     });
 
-    const { error: insertError } = await supabaseClientSide.from('users').insert({ id: data.user?.id, username: data.user?.email, status: ACCOUNT_STATUS.ADMIN });
+    const { error: insertError } = await supabaseClientSide.from('users').insert({ id: data.user?.id, username: data.user?.email, status: ACCOUNT_STATUS.STAFF });
 
 
     if (error || insertError) {
